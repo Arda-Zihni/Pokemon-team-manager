@@ -1,0 +1,57 @@
+import { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+
+function formatName(name) {
+  return name.charAt(0).toUpperCase() + name.slice(1)
+}
+
+function Detail() {
+  const { id } = useParams()
+  const [pokemon, setPokemon] = useState(null)
+  const [status, setStatus] = useState('loading')
+
+  useEffect(() => {
+    const controller = new AbortController()
+
+    async function loadPokemon() {
+      try {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, { signal: controller.signal })
+        if (!response.ok) throw new Error('Pokémon niet gevonden.')
+        setPokemon(await response.json())
+        setStatus('success')
+      } catch (error) {
+        if (error.name !== 'AbortError') setStatus('error')
+      }
+    }
+
+    loadPokemon()
+    return () => controller.abort()
+  }, [id])
+
+  if (status === 'loading') return <section className="detail-section"><p className="status-message">Pokémon wordt geladen...</p></section>
+  if (status === 'error') return <section className="detail-section"><Link className="back-link" to="/">← Terug naar Pokémon</Link><p className="status-message error-message">Deze Pokémon kon niet worden gevonden.</p></section>
+
+  const typeNames = pokemon.types.map(({ type }) => type.name)
+  const hp = pokemon.stats.find(({ stat }) => stat.name === 'hp')
+
+  return (
+    <section className="detail-section">
+      <Link className="back-link" to="/">← Terug naar Pokémon</Link>
+      <div className="detail-layout">
+        <div className="detail-art"><img src={pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default} alt={formatName(pokemon.name)} /></div>
+        <div className="detail-copy">
+          <p className="eyebrow">Pokédex detail</p>
+          <div className="detail-title"><h1>{formatName(pokemon.name)}</h1><span>#{String(pokemon.id).padStart(3, '0')}</span></div>
+          <p className="type-label">{typeNames.map(formatName).join(' / ')}</p>
+          <p className="detail-description">{formatName(pokemon.name)} heeft {pokemon.abilities.length} bekende ability{pokemon.abilities.length === 1 ? '' : 's'} en een basis HP van {hp?.base_stat}.</p>
+          <div className="stats">
+            <div><small>Gewicht</small><strong>{(pokemon.weight / 10).toFixed(1)} kg</strong></div>
+            <div><small>Hoogte</small><strong>{(pokemon.height / 10).toFixed(1)} m</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default Detail
