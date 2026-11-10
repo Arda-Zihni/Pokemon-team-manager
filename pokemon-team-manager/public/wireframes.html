@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wireframes - Pokélog</title>
+    <style>
+      :root {
+        color: #242424;
+        background: #e9e9e9;
+        font-family: Arial, sans-serif;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 36px;
+      }
+
+      .board {
+        max-width: 1440px;
+        margin: 0 auto;
+      }
+
+      .board-heading {
+        margin-bottom: 24px;
+      }
+
+      .board-heading p,
+      .screen-label,
+      .muted {
+        color: #666;
+      }
+
+      .board-heading h1 {
+        margin: 0 0 8px;
+        font-size: clamp(24px, 4vw, 36px);
+        font-weight: 500;
+      }
+
+      .board-heading p {
+        max-width: 660px;
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      .wireframe-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .screen {
+        overflow: hidden;
+        border: 1px solid #b8b8b8;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 3px 12px rgb(0 0 0 / 6%);
+      }
+
+      .screen-label {
+        padding: 12px 16px;
+        border-bottom: 1px solid #ccc;
+        background: #f4f4f4;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .mock-page {
+        min-height: 390px;
+        padding: 18px 22px;
+      }
+
+      .mock-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid #aaa;
+      }
+
+      .brand,
+      .nav-items,
+      .actions,
+      .inline,
+      .team-title,
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .brand {
+        font-weight: 700;
+      }
+
+      .brand-mark,
+      .block,
+      .image-placeholder,
+      .avatar-placeholder,
+      .button,
+      .pill,
+      .field,
+      .nav-item,
+      .line,
+      .divider {
+        border: 1px solid #aaa;
+        background: #e7e7e7;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 25px;
+        height: 25px;
+        place-items: center;
+        border-radius: 50%;
+      }
+
+      .nav-item {
+        width: 54px;
+        height: 10px;
+        border: 0;
+        background: #d3d3d3;
+      }
+
+      .mock-content {
+        max-width: 520px;
+        margin: 24px auto 0;
+      }
+
+      .line {
+        height: 10px;
+        border: 0;
+        background: #d6d6d6;
+      }
+
+      .line + .line {
+        margin-top: 9px;
+      }
+
+      .line-short {
+        width: 36%;
+      }
+
+      .line-medium {
+        width: 62%;
+      }
+
+      .line-long {
+        width: 88%;
+      }
+
+      .line-title {
+        width: 58%;
+        height: 22px;
+        margin: 22px 0 14px;
+        background: #c6c6c6;
+      }
+
+      .button {
+        min-width: 100px;
+        height: 30px;
+        border-radius: 4px;
+        background: #d2d2d2;
+      }
+
+      .button-small {
+        min-width: 70px;
+        height: 25px;
+      }
+
+      .actions {
+        margin-top: 22px;
+      }
+
+      .hero-note {
+        width: 58%;
+        height: 12px;
+        margin-top: 28px;
+      }
+
+      .list-heading,
+      .detail-layout,
+      .team-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .list-heading {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        margin: 18px 0;
+      }
+
+      .heading-block {
+        width: 115px;
+        height: 18px;
+      }
+
+      .pokemon-rows {
+        display: grid;
+        gap: 8px;
+      }
+
+      .row {
+        min-height: 54px;
+        padding: 6px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .avatar-placeholder {
+        width: 38px;
+        height: 38px;
+        border-radius: 4px;
+        background: #d4d4d4;
+      }
+
+      .row-copy {
+        flex: 1;
+      }
+
+      .row-copy .line {
+        width: 105px;
+      }
+
+      .row-copy .line-short {
+        width: 68px;
+        height: 7px;
+      }
+
+      .pill {
+        width: 52px;
+        height: 18px;
+        border-radius: 12px;
+      }
+
+      .detail-layout {
+        grid-template-columns: 190px 1fr;
+        align-items: start;
+        margin-top: 24px;
+      }
+
+      .image-placeholder {
+        display: grid;
+        width: 190px;
+        aspect-ratio: 1;
+        place-items: center;
+        border-radius: 5px;
+        background: #e5e5e5;
+      }
+
+      .image-placeholder::before {
+        width: 78px;
+        height: 78px;
+        border: 2px dashed #aaa;
+        border-radius: 50%;
+        content: "";
+      }
+
+      .detail-copy .line-title {
+        margin-top: 5px;
+      }
+
+      .divider {
+        height: 1px;
+        margin: 14px 0;
+        border: 0;
+        background: #d3d3d3;
+      }
+
+      .team-picker {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        margin-top: 9px;
+      }
+
+      .team-picker .block {
+        height: 28px;
+        border-radius: 4px;
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: 16px;
+      }
+
+      .team-card {
+        min-height: 150px;
+        padding: 10px;
+        border: 1px solid #bbb;
+        border-radius: 5px;
+      }
+
+      .team-title {
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+
+      .team-title .line {
+        width: 54px;
+      }
+
+      .team-card .row {
+        min-height: 38px;
+        padding: 4px;
+      }
+
+      .team-card .avatar-placeholder {
+        width: 25px;
+        height: 25px;
+      }
+
+      .team-card .row-copy .line {
+        width: 42px;
+        height: 7px;
+      }
+
+      .team-card .row-copy .line-short {
+        width: 28px;
+      }
+
+      .team-form {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 18px;
+      }
+
+      .field {
+        width: 150px;
+        height: 30px;
+        border-radius: 4px;
+      }
+
+      .favorites {
+        margin-top: 18px;
+      }
+
+      .favorites .line-title {
+        width: 35%;
+        height: 15px;
+        margin: 0 0 10px;
+      }
+
+      @media (max-width: 850px) {
+        body {
+          padding: 20px;
+        }
+
+        .wireframe-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 500px) {
+        body {
+          padding: 12px;
+        }
+
+        .mock-page {
+          min-height: 370px;
+          padding: 14px;
+        }
+
+        .nav-items {
+          gap: 5px;
+        }
+
+        .nav-item {
+          width: 35px;
+        }
+
+        .detail-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .image-placeholder {
+          width: min(100%, 170px);
+        }
+
+        .team-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .team-card {
+          min-height: 100px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="board">
+      <header class="board-heading">
+        <h1>Pokélog — basis wireframes</h1>
+        <p>Schematische opzet van de belangrijkste schermen. Grijze vlakken zijn placeholders voor tekst, afbeeldingen en bedieningselementen; dit zijn geen screenshots of definitieve vormgeving.</p>
+      </header>
+
+      <div class="wireframe-grid">
+        <section class="screen" aria-labelledby="home-label">
+          <div class="screen-label" id="home-label">01 · Home</div>
+          <div class="mock-page">
+            <header class="mock-nav">
+              <div class="brand"><span class="brand-mark">P</span><span>Pokélog</span></div>
+              <nav class="nav-items" aria-label="Navigatie-wireframe">
+                <span class="nav-item"></span><span class="nav-item"></span><span class="nav-item"></span>
+              </nav>
+            </header>
+            <div class="mock-content">
+              <div class="line line-short"></div>
+              <div class="line line-title"></div>
+              <div class="line line-long"></div>
+              <div class="line line-medium"></div>
+              <div class="actions"><span class="button"></span><span class="button"></span></div>
+              <div class="line hero-note"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" aria-labelledby="list-label">
+          <div class="screen-label" id="list-label">02 · Pokémonlijst</div>
+          <div class="mock-page">
+            <header class="mock-nav">
+              <div class="brand"><span class="brand-mark">P</span><span>Pokélog</span></div>
+              <nav class="nav-items" aria-label="Navigatie-wireframe">
+                <span class="nav-item"></span><span class="nav-item"></span><span class="nav-item"></span>
+              </nav>
+            </header>
+            <div class="list-heading">
+              <div class="block heading-block"></div>
+              <span class="button button-small"></span>
+            </div>
+            <div class="pokemon-rows">
+              <div class="row"><span class="avatar-placeholder"></span><div class="row-copy"><div class="line"></div></div><span class="pill"></span></div>
+              <div class="row"><span class="avatar-placeholder"></span><div class="row-copy"><div class="line"></div><div class="line line-short"></div></div><span class="pill"></span></div>
+              <div class="row"><span class="avatar-placeholder"></span><div class="row-copy"><div class="line"></div></div><span class="pill"></span></div>
+              <div class="row"><span class="avatar-placeholder"></span><div class="row-copy"><div class="line"></div><div class="line line-short"></div></div><span class="pill"></span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" aria-labelledby="detail-label">
+          <div class="screen-label" id="detail-label">03 · Pokémondetail</div>
+          <div class="mock-page">
+            <header class="mock-nav">
+              <div class="brand"><span class="brand-mark">P</span><span>Pokélog</span></div>
+              <nav class="nav-items" aria-label="Navigatie-wireframe">
+                <span class="nav-item"></span><span class="nav-item"></span><span class="nav-item"></span>
+              </nav>
+            </header>
+            <div class="line line-short" style="margin-top: 14px"></div>
+            <div class="detail-layout">
+              <div class="image-placeholder" aria-label="Placeholder voor Pokémon-afbeelding"></div>
+              <div class="detail-copy">
+                <div class="line line-short"></div>
+                <div class="line line-title"></div>
+                <div class="line line-medium"></div>
+                <div class="divider"></div>
+                <div class="line line-long"></div>
+                <div class="line line-medium"></div>
+                <div class="team-picker">
+                  <span class="block"></span><span class="block"></span><span class="block"></span>
+                </div>
+                <div class="actions"><span class="button button-small"></span><span class="button button-small"></span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" aria-labelledby="teams-label">
+          <div class="screen-label" id="teams-label">04 · Teams en favorieten</div>
+          <div class="mock-page">
+            <header class="mock-nav">
+              <div class="brand"><span class="brand-mark">P</span><span>Pokélog</span></div>
+              <nav class="nav-items" aria-label="Navigatie-wireframe">
+                <span class="nav-item"></span><span class="nav-item"></span><span class="nav-item"></span>
+              </nav>
+            </header>
+            <div class="list-heading">
+              <div class="block heading-block"></div>
+              <span class="pill"></span>
+            </div>
+            <div class="team-form">
+              <span class="field"></span><span class="button button-small"></span>
+            </div>
+            <div class="team-grid">
+              <article class="team-card">
+                <div class="team-title"><span class="line"></span><span class="pill"></span></div>
+                <div class="row"><span class="avatar-placeholder"></span><div class="row-copy"><div class="line"></div><div class="line line-short"></div></div></div>
+                <div class="actions"><span class="button button-small"></span><span class="button button-small"></span></div>
+              </article>
+              <article class="team-card">
+                <div class="team-title"><span class="line"></span><span class="pill"></span></div>
+                <div class="row"><span class="avatar-placeholder"></span><div class="row-copy"><div class="line"></div><div class="line line-short"></div></div></div>
+                <div class="actions"><span class="button button-small"></span><span class="button button-small"></span></div>
+              </article>
+              <article class="team-card">
+                <div class="team-title"><span class="line"></span><span class="pill"></span></div>
+                <div class="row"><span class="avatar-placeholder"></span><div class="row-copy"><div class="line"></div><div class="line line-short"></div></div></div>
+                <div class="actions"><span class="button button-small"></span><span class="button button-small"></span></div>
+              </article>
+            </div>
+            <div class="favorites">
+              <div class="line line-title"></div>
+              <div class="row"><span class="avatar-placeholder"></span><div class="row-copy"><div class="line"></div></div><span class="pill"></span></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
